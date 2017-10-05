@@ -10,11 +10,11 @@ export class RoundService {
     this.rnd = new Round();
   }
 
-  AddOne(){
+ /* AddOne(){
   //  this.shots.push(new Shot());
     console.log(this.rnd.getTotal())
     this.rnd.addOne()
-  }
+  }*/
 
 }
 

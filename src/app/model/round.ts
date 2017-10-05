@@ -12,18 +12,18 @@ export class Round{
       return this.shots.length;
     }
 
-    addOne() {
+    /*addOne() {
         this.shots.push(new GolfShot(0))
-    }
-    
-    /*parseFileName(t: string){
-      this.date.setDate(t.substr(0,2));
-      this.date.setMonth(t.substr(2,2));
-      this.date.setYear(t.substr(4,2)+2000);
-      this.date.setUTCHours(t.substr(7,2));
-      this.date.setUTCMinutes(t.substr(9,2));
-      this.date.setUTCSeconds(0)
-      console.log(this.date.toLocaleString());
     }*/
+    
+    parseFileName(t: string){
+        this.date.setFullYear(parseInt(t.substr(4,2))+2000);
+        this.date.setUTCDate(parseInt(t.substr(0,2)));
+        this.date.setUTCMonth(parseInt(t.substr(2,2))-1);  //Really -1?
+        this.date.setUTCHours(parseInt(t.substr(7,2)));
+        this.date.setUTCMinutes(parseInt(t.substr(9,2)));
+        this.date.setUTCSeconds(0)
+        console.log(this.date.toLocaleString());
+    }
       
 }
