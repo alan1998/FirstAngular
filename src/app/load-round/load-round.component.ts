@@ -40,7 +40,7 @@ export class LoadRoundComponent implements OnInit {
       
       reader.onerror = (evt) => {
           console.log('error');
-          //alert(evt.target.error.name);
+          alert(reader.error.name);
       };
   
       reader.readAsText(file);
