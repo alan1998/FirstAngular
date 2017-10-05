@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RoundService} from '../model/round.service'
+import { GolfShot} from '../model/golf-shot'
 
 @Component({
   selector: 'app-load-round',
@@ -25,17 +26,15 @@ export class LoadRoundComponent implements OnInit {
       const reader = new FileReader();
       
       reader.onload = (event:ProgressEvent) => {
-        const  file:FileReader = (event.target);
-      console.log(event.target)    
-      //const allLines = file.split(/\r\n|\n/);
+        console.log(event.target)    
+        const allLines = reader.result.split(/\r\n|\n/);
           // Reading line by line
           var n:number = 0;
-     //     allLines.map((line) => {
-     //         console.log(line,n);
-              //var v = new GolfShot(n++);
-              //if (v.parseInput(line))
-              //  this.rnd.shots.push(v);
-     //     });
+          allLines.map((line) => {
+              var v = new GolfShot(n++);
+              if (v.parseInput(line))
+                this.rndSrv.rnd.shots.push(v);
+          });
           //this.newRound.emit(this.rnd);
       };
       

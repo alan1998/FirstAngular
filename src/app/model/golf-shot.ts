@@ -11,10 +11,9 @@ export class GolfShot {
       this.num = -1;//Ignore input marks as unset
     }
     
-    /*parseInput(t:string) : boolean{
+    parseInput(t:string) : boolean{
       var toks = t.split(",");
       if( toks.length < 11){
-        console.log("dud line  " +t)
         return false;
       }
       this.lon = parseInt(toks[7].substr(0,3));
@@ -26,8 +25,8 @@ export class GolfShot {
       if(toks[6] != 'N')
         this.lat = -this.lat
       this.time = new Date();
-      this.time.setUTCHours(toks[1]);
-      this.time.setUTCMinutes(toks[2]);
+      this.time.setUTCHours(parseInt(toks[1]));
+      this.time.setUTCMinutes(parseInt(toks[2]));
       return true;
-    }*/
+    }
 }
