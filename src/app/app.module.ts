@@ -5,18 +5,21 @@ import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { LoadRoundComponent } from './load-round/load-round.component';
+import {RoundService} from "./model/round.service";
+import { ShotListComponent } from './shot-list/shot-list.component'
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoadRoundComponent
+    LoadRoundComponent,
+    ShotListComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule
   ],
-  providers: [],
+  providers: [RoundService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
