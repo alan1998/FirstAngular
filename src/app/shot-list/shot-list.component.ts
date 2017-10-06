@@ -8,8 +8,10 @@ import { RoundService} from '../model/round.service'
 })
 export class ShotListComponent implements OnInit {
   rndSrv:RoundService
+  shotlist:Object[];
   constructor(r:RoundService) {
     this.rndSrv = r
+    this.shotlist = this.rndSrv.rnd.shots;
    }
 
    getTotal():number {

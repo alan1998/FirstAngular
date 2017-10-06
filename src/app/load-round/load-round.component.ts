@@ -25,8 +25,7 @@ export class LoadRoundComponent implements OnInit {
       
       const reader = new FileReader();
       
-      reader.onload = (event:ProgressEvent) => {
-        console.log(event.target)    
+      reader.onload = (event:ProgressEvent) => {    
         const allLines = reader.result.split(/\r\n|\n/);
           // Reading line by line
           var n:number = 0;
@@ -35,6 +34,7 @@ export class LoadRoundComponent implements OnInit {
               if (v.parseInput(line))
                 this.rndSrv.rnd.shots.push(v);
           });
+          this.rndSrv.rnd.doInitialProcess()
           //this.newRound.emit(this.rnd);
       };
       

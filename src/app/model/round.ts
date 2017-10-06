@@ -1,4 +1,5 @@
 import {GolfShot} from './golf-shot'
+import {GeoCalcs} from "./geo-calcs"
 
 export class Round{
     public shots:GolfShot [];
@@ -10,6 +11,16 @@ export class Round{
     
     getTotal():number{
       return this.shots.length;
+    }
+
+    doInitialProcess(){
+        // Set shot number and calculate distance to next    
+        for(let n=0; n < this.shots.length;n++){
+            this.shots[n].num = n+1;
+            if(n < this.shots.length-1){
+                this.shots[n].calcDist(this.shots[n+1]);
+            }
+        }
     }
 
     /*addOne() {

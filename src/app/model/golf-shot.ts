@@ -1,3 +1,5 @@
+import {GeoCalcs} from "./geo-calcs"
+
 export class GolfShot {
     num : number;
     lat : number;
@@ -9,8 +11,20 @@ export class GolfShot {
     
     constructor(n:number){
       this.num = -1;//Ignore input marks as unset
+      this.hole = -1;
     }
-    
+
+    calcDist(s2:GolfShot):number{
+      //Calc distance to start of next shot
+      this.dist = GeoCalcs.dist(this.lon,this.lat,s2.lon,s2.lat);
+      return this.dist;
+    }
+
+    displayYrdsDist():string{
+      let d = GeoCalcs.m2yrd( this.dist);
+      return d.toFixed(1);
+    }
+      
     parseInput(t:string) : boolean{
       var toks = t.split(",");
       if( toks.length < 11){
