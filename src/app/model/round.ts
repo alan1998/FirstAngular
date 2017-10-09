@@ -10,7 +10,10 @@ export class Round{
     }
     
     getTotal():number{
-      return this.shots.length;
+        if(this.shots != null)
+            return this.shots.length;
+        else
+            return 0
     }
 
     doInitialProcess(){
@@ -25,29 +28,20 @@ export class Round{
         }
     }
 
-    deleteShot(numToDel:number){
-        //Remove from the array
+    deleteShot(numberT:number){
         let newS :GolfShot[] ;
-        console.log("Delete shot" + numToDel)
-        newS = [];
-        for(let n=0; n < this.shots.length; n++){
-            if(n+1 != numToDel){
-                //console.log("copy idx " +n)
-                newS.push(this.shots[n])
-            }
-            if(n+1 > numToDel){
-                //console.log("renumber")
-                this.shots[n].num = n;
-            }
-         }
-         //Recalculate distance of shot before deleted (if not manually set)
-         
-         
-         this.shots = newS;
-         for(let n=0; n < this.shots.length; n++){
-             console.log(n + " " + this.shots[n].num + " , " + this.shots[n].dist)
-         }
+        console.log(numberT)
+        this.shots.splice(numberT-1,1);
+        // Renumber and calculate distance if not manually set
+        for(let n=numberT-1; n < this.shots.length; n++){
+            this.shots[n].num = n+1
+        }
+        let nRepIdx = numberT-2;
+        if((nRepIdx < this.shots.length) && (nRepIdx >=0))
+            this.shots[nRepIdx].calcDist(this.shots[nRepIdx+1]);//Only do if not manually set
+        console.log(this.shots.length)
     }
+
 
     /*addOne() {
         this.shots.push(new GolfShot(0))
