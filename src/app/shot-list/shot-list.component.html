@@ -2,7 +2,8 @@
   Total:{{getTotal()}}
 </p>
 <div class="card card-block" *ngFor="let s of shotlist">
-  <h3 class="card-title">{{s.num}}</h3>
+  <h3 class="card-title"   >{{s.num}}</h3>
+  <i class="fa fa-eraser"  aria-hidden="true" (click)='deleteShot(s.num)' ></i>
   <p>{{s.displayYrdsDist()}}yrd</p>
-  <p>{{s.dist}}m</p>
+  
 </div>

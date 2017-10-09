@@ -14,11 +14,17 @@ export class ShotListComponent implements OnInit {
     this.shotlist = this.rndSrv.rnd.shots;
    }
 
+   deleteShot(num:number){
+     //Delete the shot from the round
+     this.rndSrv.rnd.deleteShot(num)
+   }
+
    getTotal():number {
      return this.rndSrv.rnd.getTotal()
    }
 
   ngOnInit() {
   }
+
 
 }

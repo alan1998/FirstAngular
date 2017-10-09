@@ -2,7 +2,7 @@ import {GolfShot} from './golf-shot'
 import {GeoCalcs} from "./geo-calcs"
 
 export class Round{
-    public shots:GolfShot [];
+    shots:GolfShot [];
     date : Date;
     constructor (){
       this.shots = [];
@@ -20,7 +20,33 @@ export class Round{
             if(n < this.shots.length-1){
                 this.shots[n].calcDist(this.shots[n+1]);
             }
+            else
+                this.shots[n].dist = 0;
         }
+    }
+
+    deleteShot(numToDel:number){
+        //Remove from the array
+        let newS :GolfShot[] ;
+        console.log("Delete shot" + numToDel)
+        newS = [];
+        for(let n=0; n < this.shots.length; n++){
+            if(n+1 != numToDel){
+                //console.log("copy idx " +n)
+                newS.push(this.shots[n])
+            }
+            if(n+1 > numToDel){
+                //console.log("renumber")
+                this.shots[n].num = n;
+            }
+         }
+         //Recalculate distance of shot before deleted (if not manually set)
+         
+         
+         this.shots = newS;
+         for(let n=0; n < this.shots.length; n++){
+             console.log(n + " " + this.shots[n].num + " , " + this.shots[n].dist)
+         }
     }
 
     /*addOne() {
