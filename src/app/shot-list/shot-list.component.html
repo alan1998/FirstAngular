@@ -5,5 +5,5 @@
   <h3 class="card-title"   >{{s.num}}</h3>
   <i class="fa fa-eraser"  aria-hidden="true" (click)='deleteShot(s.num)' ></i>
   <p>{{s.displayYrdsDist()}}yrd</p>
-  
+  <input (input)='setHole(s.num,$event.target.value)' [value]='s.hole' />
 </div>

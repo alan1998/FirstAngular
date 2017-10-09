@@ -37,7 +37,8 @@ export class Round{
             this.shots[n].num = n+1
         }
         let nRepIdx = numberT-2;
-        if((nRepIdx < this.shots.length) && (nRepIdx >=0))
+        console.log("cal shot index length "+nRepIdx)
+        if((nRepIdx+1 < this.shots.length) && (nRepIdx >=0))
             this.shots[nRepIdx].calcDist(this.shots[nRepIdx+1]);//Only do if not manually set
         console.log(this.shots.length)
     }

@@ -22,6 +22,10 @@ export class ShotListComponent implements OnInit {
      this.rndSrv.rnd.deleteShot(num)
    }
 
+   setHole(numShot:number,numHole:number){
+    console.log("Shot " + numShot  + " , hole "+numHole)
+  }
+
    getTotal():number {
      return this.rndSrv.rnd.getTotal()
    }
