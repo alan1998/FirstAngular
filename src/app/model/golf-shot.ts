@@ -8,10 +8,12 @@ export class GolfShot {
     time : Date;
     club :string;
     hole : number;
+    bHoleManSet:boolean;
     
     constructor(n:number){
       this.num = -1;//Ignore input marks as unset
       this.hole = -1;
+      this.bHoleManSet = false;
     }
 
     calcDist(s2:GolfShot):number{
@@ -23,6 +25,11 @@ export class GolfShot {
     displayYrdsDist():string{
       let d = GeoCalcs.m2yrd( this.dist);
       return d.toFixed(1);
+    }
+
+    setHole(num:number,bManSet:boolean){
+      this.hole = num;
+      this.bHoleManSet = bManSet;
     }
       
     parseInput(t:string) : boolean{

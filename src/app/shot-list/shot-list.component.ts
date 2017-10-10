@@ -23,12 +23,17 @@ export class ShotListComponent implements OnInit {
    }
 
    setHole(numShot:number,numHole:number){
+     this.rndSrv.rnd.setHole(numShot,numHole)
     console.log("Shot " + numShot  + " , hole "+numHole)
   }
 
    getTotal():number {
      return this.rndSrv.rnd.getTotal()
    }
+   getHoleList():number[]{
+    return this.rndSrv.getHoleList()
+  }
+ 
 
   ngOnInit() {
   }

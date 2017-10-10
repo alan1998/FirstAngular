@@ -8,10 +8,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://openlayers.org/en/v4.4.1/css/ol.css" type="text/css">
   <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
   <script src="https://use.fontawesome.com/439de06f03.js"></script>
+  <script src="https://openlayers.org/en/v4.4.1/build/ol.js"></script>
 </head>
 <body>
   <app-root>Loading...</app-root>
@@ -19,11 +21,12 @@
 </html>
 <!--
   Next - add form and submit button"Update" to each shot card
-  add fields for hole, club
+  add fields for hole, club, putt- if putt display feet and let manual enter of dist
+  When set hole for a shot - if changing then previous shot needs dist set to 0
   maybe have overall submit button
   data dirty type flag
 
-  Then work on open layers type view
+  Then work on open layers type view - add component for map
   Back end save
   Course object
   Round , weather details

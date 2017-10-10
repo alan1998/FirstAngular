@@ -28,6 +28,18 @@ export class Round{
         }
     }
 
+    setHole(numShot:number,numHole:number){
+        if(numShot > 0 && numShot <= this.shots.length && numHole >0 && numHole <=18)//Should check 9 hole course
+        {
+            this.shots[numShot-1].setHole(numHole,true)
+            for(let n=numShot; n < this.shots.length;n++){
+                if(this.shots[n].bHoleManSet)
+                    break;
+                this.shots[n].setHole(numHole,false)
+            }
+        } 
+    }
+
     deleteShot(numberT:number){
         let newS :GolfShot[] ;
         console.log(numberT)

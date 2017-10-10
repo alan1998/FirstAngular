@@ -2,8 +2,11 @@
   Total:{{getTotal()}}
 </p>
 <div class="card card-block" *ngFor="let s of getShots()">
-  <h3 class="card-title"   >{{s.num}}</h3>
+  <h2  >{{s.hole}}</h2>
+  <p class="card-title"   >{{s.num}}</p>
   <i class="fa fa-eraser"  aria-hidden="true" (click)='deleteShot(s.num)' ></i>
   <p>{{s.displayYrdsDist()}}yrd</p>
-  <input (input)='setHole(s.num,$event.target.value)' [value]='s.hole' />
+  <select (input)='setHole(s.num,$event.target.value)' [value]='s.hole'>
+    <option *ngFor="let h of getHoleList()">{{h}}</option>
+  </select>
 </div>
