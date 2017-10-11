@@ -6,13 +6,15 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { LoadRoundComponent } from './load-round/load-round.component';
 import {RoundService} from "./model/round.service";
-import { ShotListComponent } from './shot-list/shot-list.component'
+import { ShotListComponent } from './shot-list/shot-list.component';
+import { MapComponent } from './map/map.component'
 
 @NgModule({
   declarations: [
     AppComponent,
     LoadRoundComponent,
-    ShotListComponent
+    ShotListComponent,
+    MapComponent
   ],
   imports: [
     BrowserModule,

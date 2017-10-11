@@ -1,31 +1,20 @@
-<h1>
-  {{title}}
-</h1>
-<div>
-  <app-load-round></app-load-round>
-</div>
-<div id="map" class="map">
-  <script>
-    var map = new ol.Map({
-      layers: [
-        new ol.layer.Tile({
-          source: new ol.source.OSM()
-        })
-      ],
-      target: 'map',
-      controls: ol.control.defaults({
-        attributionOptions: /** @type {olx.control.AttributionOptions} */ ({
-          collapsible: false
-        })
-      }),
-      view: new ol.View({
-        center: [0, 0],
-        zoom: 2
-      })
-    });
 
-  </script>
+<div class="container">
+  <div class="row">
+      <h1>
+          {{title}}
+        </h1>
+  </div>
+  <div class="row">
+      <app-load-round></app-load-round>
+  </div>
+  <div class="row">
+    <div class="col-xs-6">
+      <app-shot-list></app-shot-list>
+    </div>
+    <div class="col-xs-6">
+      <app-map></app-map>
+    </div>
+   </div>
 </div>
-<div>
-  <app-shot-list></app-shot-list>
-</div>
+
