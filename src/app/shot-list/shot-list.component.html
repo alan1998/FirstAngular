@@ -2,14 +2,17 @@
   <p>
     Total:{{getTotal()}}
   </p>
-
-  <div class="card card-block" style="height:150px; overflow-y:auto"  *ngFor="let s of getShots()" >
-    <h2  >{{s.hole}}</h2>
-    <p class="card-title"   >{{s.num}}</p>
-    <i class="fa fa-eraser"  aria-hidden="true" (click)='deleteShot(s.num)' ></i>
-    <p>{{s.displayYrdsDist()}}yrd</p>
-    <select (input)='setHole(s.num,$event.target.value)' [value]='s.hole'>
-      <option *ngFor="let h of getHoleList()">{{h}}</option>
-    </select>
-  </div>
+  <ul style="height: 500px">
+    <li *ngFor="let s of getShots()" >
+      <div class="card card-block" style="height:150px; overflow-y:auto"   >
+        <h2  >{{s.hole}}</h2>
+        <p class="card-title"   >{{s.num}}</p>
+        <i class="fa fa-eraser"  aria-hidden="true" (click)='deleteShot(s.num)' ></i>
+        <p>{{s.displayYrdsDist()}}yrd</p>
+        <select (input)='setHole(s.num,$event.target.value)' [value]='s.hole'>
+          <option *ngFor="let h of getHoleList()">{{h}}</option>
+        </select>
+      </div>    
+    </li>
+  </ul>
 </section>
