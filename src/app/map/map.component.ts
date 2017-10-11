@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
 import * as ol from '../../../../node_modules/openlayers';
-//import * as ol from 'C:/Users/alan/Documents/dev/node_modules/openlayers';
-//import Map from 'openlayers/map';
 
 @Component({
   selector: 'app-map',
