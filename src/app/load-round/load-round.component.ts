@@ -8,10 +8,11 @@ import { GolfShot} from '../model/golf-shot'
   styleUrls: ['./load-round.component.css']
 })
 export class LoadRoundComponent implements OnInit {
-  rndSrv : RoundService
+  rndSrv : RoundService;
   constructor(rnd:RoundService ) {
     this.rndSrv = rnd
    }
+
   LoadFile(ev){
     console.log(ev)
     var fileList = ev.target.files;
@@ -34,8 +35,8 @@ export class LoadRoundComponent implements OnInit {
               if (v.parseInput(line))
                 this.rndSrv.rnd.shots.push(v);
           });
-          this.rndSrv.rnd.doInitialProcess()
-          //this.newRound.emit(this.rnd);
+          this.rndSrv.rnd.doInitialProcess();
+          this.rndSrv.loadNewRound(); // Todo this should do the load not local code above
       };
       
       reader.onerror = (evt) => {

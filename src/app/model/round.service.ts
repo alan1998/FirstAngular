@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs/Subject';
 import { Round } from './round';
 
 
@@ -6,8 +7,17 @@ import { Round } from './round';
 @Injectable()
 export class RoundService {
   rnd: Round
+  private _triggerNewSubj = new Subject();
+  triggerNewRnd$ = this._triggerNewSubj.asObservable();
+
   constructor() {
     this.rnd = new Round();
+  }
+
+  loadNewRound(){
+    //This should do the round load
+    // not the round
+    this._triggerNewSubj.next("A string of info");
   }
 
   getHoleList():number[]{
@@ -19,11 +29,6 @@ export class RoundService {
   //  return this.rnd.getTotal()
   //}
 
- /* AddOne(){
-  //  this.shots.push(new Shot());
-    console.log(this.rnd.getTotal())
-    this.rnd.addOne()
-  }*/
 
 }
 
