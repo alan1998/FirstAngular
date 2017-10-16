@@ -12,6 +12,7 @@ export class MapComponent implements OnInit {
   map;
   rndSrv:RoundService
   vectorSourceShots; //Layer with shots in
+  modifyShots; // Interaction from vector layer
 
   constructor(r:RoundService) {
     this.rndSrv = r;
@@ -26,9 +27,9 @@ export class MapComponent implements OnInit {
   createShotStyle(n:number){
     let shotStyle = new ol.style.Style({
       image: new ol.style.Circle({
-        radius:5,
-        fill: new ol.style.Fill({color: 'rgba(0, 255, 0, 0.4)'}),
-        stroke: new ol.style.Stroke({color: 'Red', width: 1})
+        radius:6,
+        fill: new ol.style.Fill({color: 'rgba(0, 255, 0, 0.5)'}),
+        stroke: new ol.style.Stroke({color: 'Green', width: 1})
       }),
       text: new ol.style.Text({
         text:n.toString()
@@ -74,7 +75,12 @@ export class MapComponent implements OnInit {
           zoom: 15
         })
       });
-  
+      this.modifyShots = new ol.interaction.Modify({
+          source: this.vectorSourceShots});
+      this.map.addInteraction(this.modifyShots);
+      this.modifyShots.on('modifyend', function(evt){
+        console.log(evt)
+      });
     }
     // Loop over shots. Feature for each and id = shot number
     for(let n=0; n < this.rndSrv.rnd.shots.length; n++){
