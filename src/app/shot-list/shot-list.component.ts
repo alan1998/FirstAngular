@@ -19,7 +19,7 @@ export class ShotListComponent implements OnInit {
 
    deleteShot(num:number){
      //Delete the shot from the round
-     this.rndSrv.rnd.deleteShot(num)
+     this.rndSrv.deleteShot(num)
    }
 
    setHole(numShot:number,numHole:number){

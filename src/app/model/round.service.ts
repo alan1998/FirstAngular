@@ -17,7 +17,16 @@ export class RoundService {
   loadNewRound(){
     //This should do the round load
     // not the round
-    this._triggerNewSubj.next("A string of info");
+    this._triggerNewSubj.next("new");
+  }
+
+  updateRound(){
+    this._triggerNewSubj.next("update");
+  }
+
+  deleteShot(numberT:number){
+    this.rnd.deleteShot(numberT);
+    this.updateRound();
   }
 
   getHoleList():number[]{
