@@ -9,11 +9,13 @@ export class GolfShot {
     club :string;
     hole : number;
     bHoleManSet:boolean;
+    bDistManSet:boolean;
     
     constructor(n:number){
       this.num = -1;//Ignore input marks as unset
       this.hole = -1;
       this.bHoleManSet = false;
+      this.bDistManSet = false;
     }
 
     calcDist(s2:GolfShot):number{
@@ -31,7 +33,18 @@ export class GolfShot {
       this.hole = num;
       this.bHoleManSet = bManSet;
     }
-      
+    
+    hasSameLocation(lon:number,lat:number):boolean{
+      let bRet = false;
+      let tol =0.00001;
+      if((Math.abs(lat - this.lat) < tol) && (Math.abs(lon-this.lon)< tol))
+        bRet = true;
+      else{
+        console.log(this.lon +' '+ this.lat)
+      }
+      return bRet;
+    }
+
     parseInput(t:string) : boolean{
       var toks = t.split(",");
       if( toks.length < 11){

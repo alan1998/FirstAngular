@@ -32,7 +32,12 @@ export class MapComponent implements OnInit {
         stroke: new ol.style.Stroke({color: 'Green', width: 1})
       }),
       text: new ol.style.Text({
-        text:n.toString()
+        text:n.toString(),
+        textAlign:'left',
+        textBaseline: 'bottom',
+        fill: new ol.style.Fill({color: 'Black'}),
+        stroke: new ol.style.Stroke({color: 'rgba(255, 255, 255, 0.5)', width: 2}),
+        font:'normal 14px Arial ',
       })  
     });
     return shotStyle;
@@ -78,9 +83,9 @@ export class MapComponent implements OnInit {
       this.modifyShots = new ol.interaction.Modify({
           source: this.vectorSourceShots});
       this.map.addInteraction(this.modifyShots);
-      this.modifyShots.on('modifyend', function(evt){
-        console.log(evt)
-      });
+       this.modifyShots.on('modifyend', (evt) =>{
+          this.onModifyend(evt)
+        });
     }
     // Loop over shots. Feature for each and id = shot number
     for(let n=0; n < this.rndSrv.rnd.shots.length; n++){
@@ -95,6 +100,34 @@ export class MapComponent implements OnInit {
       this.vectorSourceShots.addFeature(feature);
     }
     
+  }
+
+  onModifyend(evt){
+    let c = evt.mapBrowserEvent.coordinate;
+    let newPos = ol.proj.toLonLat(c);
+    //Itterate features and find first that has moved.
+    let fs = this.vectorSourceShots.getFeatures();
+    let n=0;
+    let bFound = false;
+    let shotNum;
+    for(n=0; n < fs.length; n++){
+      let id = fs[n].getId();
+      let c = fs[n].getGeometry().getFirstCoordinate();
+      let p = ol.proj.toLonLat(c);
+      shotNum = parseInt(id)
+      let shot = this.rndSrv.getShot(shotNum);
+      if(!shot.hasSameLocation(p[0],p[1])){
+        bFound = true;
+        shot.lat = newPos[1];
+        shot.lon = newPos[0];
+        break;
+      }
+    }
+    if(bFound){
+      this.rndSrv.movedShot(shotNum);
+    }
+    
+    //Recalculate distance for it and previous (add a shot moved method to round and rndService)
   }
 
   ngOnInit() {
