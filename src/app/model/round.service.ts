@@ -8,8 +8,11 @@ export class RoundService {
   rnd: Round
   private _triggerNewSubj = new Subject();
   triggerNewRnd$ = this._triggerNewSubj.asObservable();
+  bDispShotAtHole:boolean;  // i.e. display shot number per hole not round
+
   constructor() {
     this.rnd = new Round();
+    this.bDispShotAtHole = true;
   }
 
   loadNewRound(){
@@ -22,6 +25,45 @@ export class RoundService {
     this._triggerNewSubj.next("update");
   }
 
+  getDisplayNumber(numShot:number):string{
+    let idx = numShot-1;
+    if(idx <0 || idx > this.rnd.shots.length)
+      return '';
+    if(this.bDispShotAtHole){
+      // if hole number not set then use numShot
+      // else count backwards until hole number changes
+      let hole = this.rnd.shots[idx].hole;
+      let n=1;
+      if( hole >0){  
+        let ptr = idx;
+        while(ptr>0){
+          if(this.rnd.shots[ptr-1].hole != hole){
+            break;
+          }
+          n++;
+          ptr--;
+        }
+        return n.toString();
+      }
+      else
+        return numShot.toString();
+    }
+    else
+      return numShot.toString();
+
+  }
+
+  debugLogRnd(){
+    for(let n=0; n < this.rnd.shots.length; n++){
+      console.log(n + ' ' + this.rnd.shots[n].hole)
+    }
+  }
+
+  setHole(numShot:number,numHole:number){
+    this.rnd.setHole(numShot,numHole);
+    //this.debugLogRnd();
+    this.updateRound();
+  }
   deleteShot(numberT:number){
     this.rnd.deleteShot(numberT);
     this.updateRound();

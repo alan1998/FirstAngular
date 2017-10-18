@@ -25,6 +25,7 @@ export class MapComponent implements OnInit {
   }
 
   createShotStyle(n:number){
+    let dispNum = this.rndSrv.getDisplayNumber(n);
     let shotStyle = new ol.style.Style({
       image: new ol.style.Circle({
         radius:6,
@@ -32,7 +33,7 @@ export class MapComponent implements OnInit {
         stroke: new ol.style.Stroke({color: 'Green', width: 1})
       }),
       text: new ol.style.Text({
-        text:n.toString(),
+        text:dispNum,
         textAlign:'left',
         textBaseline: 'bottom',
         fill: new ol.style.Fill({color: 'Black'}),
@@ -89,6 +90,7 @@ export class MapComponent implements OnInit {
     }
     // Loop over shots. Feature for each and id = shot number
     for(let n=0; n < this.rndSrv.rnd.shots.length; n++){
+      console.log(n+' '+ this.rndSrv.rnd.shots[n].hole)
       let cent = ol.proj.fromLonLat([this.rndSrv.rnd.shots[n].lon, this.rndSrv.rnd.shots[n].lat]);
       let feature = new ol.Feature({
         geometry: new ol.geom.Point(cent),

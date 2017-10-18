@@ -23,8 +23,7 @@ export class ShotListComponent implements OnInit {
    }
 
    setHole(numShot:number,numHole:number){
-     this.rndSrv.rnd.setHole(numShot,numHole)
-    console.log("Shot " + numShot  + " , hole "+numHole)
+     this.rndSrv.setHole(numShot,numHole)
   }
 
    getTotal():number {
