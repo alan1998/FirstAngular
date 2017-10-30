@@ -33,3 +33,56 @@ npm install openlayers
 npm install --save-dev @types/openlayers
 
 edit tsconfig.json compiler options  "allowJs":true,
+
+get primeng going npm install primeng --save
+need npm install font-awesome
+may need npm install @angular/animations --save
+
+Then app.module.ts needs
+	import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+	import {ContextMenuModule, MenuItem} from 'primeng/primeng';
+	import { MenuDemoComponent } from './menu-demo/menu-demo.component';
+	
+	and
+	imports: [
+    ....
+    ..
+    ....
+    ContextMenuModule,
+    BrowserAnimationsModule
+  ],
+  
+  Global styles file "styles.css" to make menu work well
+	.ui-contextmenu { font-size:0.5em  ;padding:0px; margin:0pt}
+	.ui-menu-list { font-size:0.5em ;padding:0px; margin:0pt} /* Controlling width of pop out */
+	.ui-menu-child { font-size:0.5em ;padding:0px; margin:0pt} /* Controlling ? */
+	.ui-menuitem { font-size:2.5em ; padding:0px; margin:0pt}
+	.ui-menuitem-text {font-size: 0.5em; padding:0pt; margin:0pt}  /* does do the text */
+	.ui-menuitem-icon {font-size: 0.7em} /* does icon */
+	.ui-submenu-icon {font-size:0.9em; } /* arrow */
+
+	also in index.html
+		<link rel="stylesheet" type="text/css" href="/node_modules/font-awesome/css/font-awesome.min.css" />
+		<link rel="stylesheet" type="text/css" href="/node_modules/primeng/resources/themes/darkness/theme.css" />
+		<link rel="stylesheet" type="text/css" href="/node_modules/primeng/resources/primeng.min.css" />
+	plus	
+		<body>
+			<style type="text/css" >* {font-size:30px}</style>
+			
+	Package.json
+	"private": true,
+	  "dependencies": {
+		"@angular/animations": "^4.4.6",
+		"font-awesome": "^4.7.0",
+		"primeng": "^4.2.2",
+		"rxjs": "^5.1.0",
+		"zone.js": "^0.8.4"
+	  },
+ 
+	Plus in angular-cli.json
+	      "styles": [
+        "../node_modules/font-awesome/css/font-awesome.min.css",
+        "../node_modules/primeng/resources/primeng.min.css",
+        "../node_modules/primeng/resources/themes/omega/theme.css",      
+        "styles.css"
+      ],

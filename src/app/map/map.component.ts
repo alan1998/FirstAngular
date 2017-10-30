@@ -14,6 +14,7 @@ export class MapComponent implements OnInit {
   vectorSourceShots; //Layer with shots in
   modifyShots; // Interaction from vector layer
 
+
   constructor(r:RoundService) {
     this.rndSrv = r;
     this.rndSrv.triggerNewRnd$.subscribe(
@@ -21,7 +22,7 @@ export class MapComponent implements OnInit {
         console.log(aVal);
         this.displayShots(aVal.toString());
       });
-      
+
   }
 
   createShotStyle(n:number){
@@ -87,6 +88,13 @@ export class MapComponent implements OnInit {
        this.modifyShots.on('modifyend', (evt) =>{
           this.onModifyend(evt)
         });
+      this.map.on('pointermove',  (e) => {
+        if (e.dragging) 
+          return;
+        let pixel = this.map.getEventPixel(e.originalEvent);
+        let hit = this.map.hasFeatureAtPixel(pixel);
+        this.map.getTargetElement().style.cursor = hit ? 'pointer' : '';
+      });
     }
     // Loop over shots. Feature for each and id = shot number
     for(let n=0; n < this.rndSrv.rnd.shots.length; n++){
