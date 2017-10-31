@@ -7,6 +7,6 @@ body, html {
 .ui-menu-list { font-size:0.5em ;padding:0px; margin:0pt} /* Controlling width of pop out */
 .ui-menu-child { font-size:0.5em ;padding:0px; margin:0pt} /* Controlling ? */
 .ui-menuitem { font-size:2.5em ; padding:0px; margin:0pt}
-.ui-menuitem-text {font-size: 0.5em; padding:0pt; margin:0pt}  /* does do the text */
+.ui-menuitem-text {font-size: 1.0em; padding:0pt; margin:0pt}  /* does do the text */
 .ui-menuitem-icon {font-size: 0.7em} /* does icon */
 .ui-submenu-icon {font-size:0.9em; } /* arrow */

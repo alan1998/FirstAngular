@@ -1,3 +1,4 @@
-<div id='map' #map style='height:500px'>
+<div id='map' #map (contextmenu)='MenuHandler($event)' style='height:500px'>
   
 </div>
+<p-contextMenu appendTo="body" [target]="map" [global]="false" [model]="items"></p-contextMenu>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RoundService} from '../model/round.service'
 import { GolfShot } from '../model/golf-shot'
 import * as ol from '../../../../node_modules/openlayers';
+import {ContextMenuModule,MenuItem} from 'primeng/primeng';
 
 @Component({
   selector: 'app-map',
@@ -13,7 +14,7 @@ export class MapComponent implements OnInit {
   rndSrv:RoundService
   vectorSourceShots; //Layer with shots in
   modifyShots; // Interaction from vector layer
-
+  private items: MenuItem[];
 
   constructor(r:RoundService) {
     this.rndSrv = r;
@@ -114,6 +115,7 @@ export class MapComponent implements OnInit {
 
   onModifyend(evt){
     let c = evt.mapBrowserEvent.coordinate;
+    console.log(evt)
     let newPos = ol.proj.toLonLat(c);
     //Itterate features and find first that has moved.
     let fs = this.vectorSourceShots.getFeatures();
@@ -140,7 +142,20 @@ export class MapComponent implements OnInit {
     //Recalculate distance for it and previous (add a shot moved method to round and rndService)
   }
 
+  MenuHandler(e){
+    // TODO - multiple at this location and zoom > ?
+    // If so enable spread etc enable others if only single marker
+    console.log('Menu handler')
+    console.log(e)
+    let b = this.items[0].disabled;
+    b = !b;
+    this.items[0].disabled = b;
+  }
   ngOnInit() {
+    this.items = [
+      {label: 'Spread',disabled:false},
+      {label: 'Modify',disabled:true}
+    ];
   }
 
 }
