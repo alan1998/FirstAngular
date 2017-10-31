@@ -145,15 +145,24 @@ export class MapComponent implements OnInit {
   MenuHandler(e){
     // TODO - multiple at this location and zoom > ?
     // If so enable spread etc enable others if only single marker
-    console.log('Menu handler')
-    console.log(e)
-    let b = this.items[0].disabled;
-    b = !b;
-    this.items[0].disabled = b;
+    let z = this.map.getView().getZoom();
+    let p = [e.layerX, e.layerY];
+    let feats = this.map.getFeaturesAtPixel(p)
+    // Features always seem to have 1 undefined
+    if(( z > 19) && (feats.length >2))
+      this.items[0].disabled = false; // Zoom high enough and more than 1 shot at pixel
+    else
+      this.items[0].disabled = true;
+
   }
+
+  spread(){
+    console.log("Spread")
+  }
+
   ngOnInit() {
     this.items = [
-      {label: 'Spread',disabled:false},
+      {label: 'Spread',disabled:false, command: (event) => {this.spread();}},
       {label: 'Modify',disabled:true}
     ];
   }
