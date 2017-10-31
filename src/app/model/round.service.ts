@@ -25,6 +25,14 @@ export class RoundService {
     this._triggerNewSubj.next("update");
   }
 
+  spreadShots(shots:number [] ){
+    let inc = 360 / shots.length;
+    for(let n=0; n < shots.length; n++){
+      this.rnd.shots[shots[n]].shift(inc*n)
+    }
+    this.updateRound();
+  }
+
   getDisplayNumber(numShot:number):string{
     let idx = numShot-1;
     if(idx <0 || idx > this.rnd.shots.length)

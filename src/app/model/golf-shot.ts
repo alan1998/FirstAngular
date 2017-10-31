@@ -10,6 +10,7 @@ export class GolfShot {
     hole : number;
     bHoleManSet:boolean;
     bDistManSet:boolean;
+    shiftDist:number = 0.001;
     
     constructor(n:number){
       this.num = -1;//Ignore input marks as unset
@@ -43,6 +44,13 @@ export class GolfShot {
         console.log(this.lon +' '+ this.lat)
       }
       return bRet;
+    }
+
+    shift(ang:number){
+      let y = this.shiftDist * Math.cos(ang/180);
+      let x = this.shiftDist * Math.sin(ang/180);
+      this.lon = this.lon + x;
+      this.lat = this.lat +y;
     }
 
     parseInput(t:string) : boolean{

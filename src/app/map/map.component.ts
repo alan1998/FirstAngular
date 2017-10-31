@@ -11,10 +11,11 @@ import {ContextMenuModule,MenuItem} from 'primeng/primeng';
 })
 export class MapComponent implements OnInit {
   map;
-  rndSrv:RoundService
+  rndSrv:RoundService;
   vectorSourceShots; //Layer with shots in
   modifyShots; // Interaction from vector layer
   private items: MenuItem[];
+  editShots: number[];
 
   constructor(r:RoundService) {
     this.rndSrv = r;
@@ -149,15 +150,21 @@ export class MapComponent implements OnInit {
     let p = [e.layerX, e.layerY];
     let feats = this.map.getFeaturesAtPixel(p)
     // Features always seem to have 1 undefined
-    if(( z > 19) && (feats.length >2))
+    if(( z > 19) && (feats.length >2)){
       this.items[0].disabled = false; // Zoom high enough and more than 1 shot at pixel
+      this.editShots = Array<number>(feats.length-1);
+      for(let n=1; n<feats.length;n++ ){
+        this.editShots[n-1]=feats[n].getId( );
+      }
+    }
     else
       this.items[0].disabled = true;
 
   }
 
   spread(){
-    console.log("Spread")
+    console.log("Spread " +this.editShots.length);
+    this.rndSrv.spreadShots(this.editShots);
   }
 
   ngOnInit() {
