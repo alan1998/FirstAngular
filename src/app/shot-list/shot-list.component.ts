@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RoundService} from '../model/round.service'
+import {AccordionModule} from 'primeng/primeng';
+import {SharedModule} from 'primeng/primeng';
 
 @Component({
   selector: 'app-shot-list',
