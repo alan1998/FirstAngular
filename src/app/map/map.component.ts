@@ -144,18 +144,19 @@ export class MapComponent implements OnInit {
   }
 
   MenuHandler(e){
-    // TODO - multiple at this location and zoom > ?
-    // If so enable spread etc enable others if only single marker
+    // Enable items based on zoom level and features at pixel
     let z = this.map.getView().getZoom();
     let p = [e.layerX, e.layerY];
     let feats = this.map.getFeaturesAtPixel(p)
     // Features always seem to have 1 undefined
+    if((feats.length-1)> 0){
+      this.editShots = new Array<number>(feats.length-1)
+      for(let n=1; n < feats.length; n++){
+        this.editShots[n-1] = feats[n].getId();
+      }
+    }
     if(( z > 19) && (feats.length >2)){
       this.items[0].disabled = false; // Zoom high enough and more than 1 shot at pixel
-      this.editShots = Array<number>(feats.length-1);
-      for(let n=1; n<feats.length;n++ ){
-        this.editShots[n-1]=feats[n].getId( );
-      }
     }
     else
       this.items[0].disabled = true;
@@ -163,8 +164,22 @@ export class MapComponent implements OnInit {
   }
 
   spread(){
-    console.log("Spread " +this.editShots.length);
+    // Reposition shots and modify geometry of associated features
+    // First feature in array is bogus
     this.rndSrv.spreadShots(this.editShots);
+    let lay = this.vectorSourceShots;
+    let feats = lay.getFeatures();
+
+    for(let nF=1; nF < feats.length; nF++){
+      let numShot = feats[nF].getId();
+      for(let n=0; n < this.editShots.length; n++){
+        if(this.editShots[n] == numShot){
+          let cent = ol.proj.fromLonLat([this.rndSrv.rnd.shots[numShot-1].lon, this.rndSrv.rnd.shots[numShot-1].lat]);
+          let geo = new ol.geom.Point(cent)
+          feats[nF].setGeometry(geo);
+        }
+      }
+    }
   }
 
   ngOnInit() {

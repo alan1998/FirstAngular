@@ -28,9 +28,23 @@ export class RoundService {
   spreadShots(shots:number [] ){
     let inc = 360 / shots.length;
     for(let n=0; n < shots.length; n++){
-      this.rnd.shots[shots[n]].shift(inc*n)
+      this.rnd.shots[shots[n]-1].shift(inc*n)
     }
-    this.updateRound();
+    // 2nd pass calculate new distances after all moved
+    // Moved shots not necessarily contiguous so have to do shot before for each
+    for(let n=0; n < shots.length; n++){
+      let idx = shots[n]-1;
+      let shot = this.rnd.shots[idx];
+      if(!shot.bDistManSet)
+        shot.calcDist(this.rnd.shots[idx+1]);
+      if(idx > 1){
+        idx = idx -1;
+        let shot = this.rnd.shots[idx];
+        if(!shot.bDistManSet)
+          shot.calcDist(this.rnd.shots[idx+1]);
+  
+      }  
+    }
   }
 
   getDisplayNumber(numShot:number):string{

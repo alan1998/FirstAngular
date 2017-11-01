@@ -10,7 +10,7 @@ export class GolfShot {
     hole : number;
     bHoleManSet:boolean;
     bDistManSet:boolean;
-    shiftDist:number = 0.001;
+    shiftDist:number = 0.00001;
     
     constructor(n:number){
       this.num = -1;//Ignore input marks as unset
@@ -21,7 +21,11 @@ export class GolfShot {
 
     calcDist(s2:GolfShot):number{
       //Calc distance to start of next shot
-      this.dist = GeoCalcs.dist(this.lon,this.lat,s2.lon,s2.lat);
+      if(s2 != null){
+        this.dist = GeoCalcs.dist(this.lon,this.lat,s2.lon,s2.lat);        
+      }
+      else
+        this.dist = 0;
       return this.dist;
     }
 
@@ -47,8 +51,8 @@ export class GolfShot {
     }
 
     shift(ang:number){
-      let y = this.shiftDist * Math.cos(ang/180);
-      let x = this.shiftDist * Math.sin(ang/180);
+      let y = this.shiftDist * Math.cos(Math.PI*ang/180);
+      let x = this.shiftDist * Math.sin(Math.PI*ang/180);
       this.lon = this.lon + x;
       this.lat = this.lat +y;
     }
