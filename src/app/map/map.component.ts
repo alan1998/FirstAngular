@@ -16,6 +16,8 @@ export class MapComponent implements OnInit {
   modifyShots; // Interaction from vector layer
   private items: MenuItem[];
   editShots: number[];
+  eSpread:number;
+  eDelete:number;
 
   constructor(r:RoundService) {
     this.rndSrv = r;
@@ -25,6 +27,16 @@ export class MapComponent implements OnInit {
         this.displayShots(aVal.toString());
       });
 
+  }
+
+  ngOnInit() {
+    this.items = [
+      {label: 'Spread',disabled:false, command: (event) => {this.spread();}},
+      {label: 'Delete',disabled:true, command: (event) => {this.deleteShot();}}
+    ];
+    //Todo enums?  Programtically do this this
+    this.eSpread=0;
+    this.eDelete = 1;
   }
 
   createShotStyle(n:number){
@@ -149,18 +161,21 @@ export class MapComponent implements OnInit {
     let p = [e.layerX, e.layerY];
     let feats = this.map.getFeaturesAtPixel(p)
     // Features always seem to have 1 undefined
-    if((feats.length-1)> 0){
+    if(feats != null &&   (feats.length-1)> 0){
       this.editShots = new Array<number>(feats.length-1)
       for(let n=1; n < feats.length; n++){
         this.editShots[n-1] = feats[n].getId();
       }
     }
-    if(( z > 19) && (feats.length >2)){
-      this.items[0].disabled = false; // Zoom high enough and more than 1 shot at pixel
+    this.items[this.eDelete].disabled = true;
+    if(( z > 19) && (feats != null) && (feats.length >2)){
+      this.items[this.eSpread].disabled = false; // Zoom high enough and more than 1 shot at pixel
     }
-    else
-      this.items[0].disabled = true;
-
+    else{
+      this.items[this.eSpread].disabled = true;
+      if(this.editShots.length==1)
+        this.items[this.eDelete].disabled = false;
+    }
   }
 
   spread(){
@@ -182,11 +197,9 @@ export class MapComponent implements OnInit {
     }
   }
 
-  ngOnInit() {
-    this.items = [
-      {label: 'Spread',disabled:false, command: (event) => {this.spread();}},
-      {label: 'Modify',disabled:true}
-    ];
+  deleteShot(){
+    if(this.editShots.length == 1){
+      this.rndSrv.deleteShot(this.editShots[0])
+    }
   }
-
 }

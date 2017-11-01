@@ -86,8 +86,11 @@ export class RoundService {
     //this.debugLogRnd();
     this.updateRound();
   }
-  deleteShot(numberT:number){
-    this.rnd.deleteShot(numberT);
+  deleteShot(shotNumber:number){
+    this.rnd.deleteShot(shotNumber);
+    //If not first shot recalculate length of previous shot
+   // if(shotNumber>1)
+   //   this.rnd.calcDist(shotNumber);
     this.updateRound();
   }
 
