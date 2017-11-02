@@ -19,6 +19,10 @@ export class ShotListComponent implements OnInit {
      return this.rndSrv.rnd.shots;
    }
 
+   getShotNumOnHole(shotRoundNum:number){
+     return this.rndSrv.getDisplayNumber(shotRoundNum)
+   }
+
    deleteShot(num:number){
      //Delete the shot from the round
      this.rndSrv.deleteShot(num)

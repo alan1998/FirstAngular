@@ -5,7 +5,7 @@ import { HttpModule } from '@angular/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ContextMenuModule, MenuItem} from 'primeng/primeng';
 import {AccordionModule} from 'primeng/primeng';
-
+import {ConfirmDialogModule, ConfirmationService} from 'primeng/primeng';
 import { AppComponent } from './app.component';
 import { LoadRoundComponent } from './load-round/load-round.component';
 import {RoundService} from "./model/round.service";
@@ -27,9 +27,10 @@ import {SharedModule} from 'primeng/primeng';
     ContextMenuModule,
     BrowserAnimationsModule,
     AccordionModule,
-    SharedModule
+    SharedModule,
+    ConfirmDialogModule
   ],
-  providers: [RoundService],
+  providers: [RoundService,ConfirmationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

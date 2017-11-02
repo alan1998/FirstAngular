@@ -3,6 +3,7 @@ import { RoundService} from '../model/round.service'
 import { GolfShot } from '../model/golf-shot'
 import * as ol from '../../../../node_modules/openlayers';
 import {ContextMenuModule,MenuItem} from 'primeng/primeng';
+import {ConfirmDialogModule,ConfirmationService} from 'primeng/primeng';
 
 @Component({
   selector: 'app-map',
@@ -18,15 +19,16 @@ export class MapComponent implements OnInit {
   editShots: number[];
   eSpread:number;
   eDelete:number;
+  //confirmationService: ConfirmationService;
 
-  constructor(r:RoundService) {
+  constructor(r:RoundService, private confirmationService: ConfirmationService) {
+    //this.confirmationService = confSrv;
     this.rndSrv = r;
     this.rndSrv.triggerNewRnd$.subscribe(
       aVal => {
         console.log(aVal);
         this.displayShots(aVal.toString());
       });
-
   }
 
   ngOnInit() {
@@ -38,6 +40,20 @@ export class MapComponent implements OnInit {
     this.eSpread=0;
     this.eDelete = 1;
   }
+
+  confirmDel(numShot:number) {
+    this.confirmationService.confirm({
+        message: 'Are you sure you want to delete this shot?',
+        header: 'Confirm delete',
+        icon: 'fa fa-trash',
+        accept: () => {
+          this.rndSrv.deleteShot(numShot);
+        },
+        reject: () => {
+            //Do nothing
+        }
+    });
+}
 
   createShotStyle(n:number){
     let dispNum = this.rndSrv.getDisplayNumber(n);
@@ -199,7 +215,7 @@ export class MapComponent implements OnInit {
 
   deleteShot(){
     if(this.editShots.length == 1){
-      this.rndSrv.deleteShot(this.editShots[0])
+      this.confirmDel(this.editShots[0]);
     }
   }
 }

@@ -5,15 +5,16 @@
   <p-accordion>
     <p-accordionTab *ngFor="let s of getShots()" >
       <p-header>
-          <select (input)='setHole(s.num,$event.target.value)' [value]='s.hole'>
-              <option *ngFor="let h of getHoleList()">{{h}}</option>
-            </select>
-        <span>{{s.hole}} : {{s.num}}</span>
+       <span>{{s.hole}} : {{getShotNumOnHole( s.num)}} : {{s.displayYrdsDist()}}yrd</span>
       </p-header>
+        <select (input)='setHole(s.num,$event.target.value)' [value]='s.hole'>
+        <option *ngFor="let h of getHoleList()">{{h}}</option>
+        </select>
+
        <span>{{s.displayYrdsDist()}}yrd</span>
     </p-accordionTab>
   </p-accordion>
-  <ul style="height: 500px">
+<!--  <ul style="height: 500px">
     <li *ngFor="let s of getShots()" >
       <div class="card card-block" style="height:150px; overflow-y:auto"   >
         <h2  >{{s.hole}}</h2>
@@ -25,5 +26,5 @@
         </select>
       </div>    
     </li>
-  </ul>
+  </ul> -->
 </section>
