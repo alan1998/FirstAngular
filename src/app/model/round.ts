@@ -69,7 +69,19 @@ export class Round{
         console.log(this.shots.length)
     }
 
+    insertShot(n:number){
+        let sOrg = this.shots[n-1];
+        let sCopy = Object.create(sOrg);
+        sCopy.shift(0);
+        //Insert into array
+        this.shots.splice(n-1,0,sCopy);
 
+        // hole number will be correct?
+
+        // calc distance
+        this.shots[n-1].calcDist(this.shots[n]);
+        // recalculate previous shot distance maybe 
+    }
     /*addOne() {
         this.shots.push(new GolfShot(0))
     }*/

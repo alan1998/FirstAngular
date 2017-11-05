@@ -8,6 +8,7 @@ export class GolfShot {
     time : Date;
     club :string;
     hole : number;
+    numOnHole : number;
     bHoleManSet:boolean;
     bDistManSet:boolean;
     shiftDist:number = 0.00001;
@@ -15,6 +16,7 @@ export class GolfShot {
     constructor(n:number){
       this.num = -1;//Ignore input marks as unset
       this.hole = -1;
+      this.numOnHole = -1;
       this.bHoleManSet = false;
       this.bDistManSet = false;
     }

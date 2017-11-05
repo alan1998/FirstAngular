@@ -13,6 +13,16 @@ export class ShotListComponent implements OnInit {
   
   constructor(r:RoundService) {
     this.rndSrv = r
+    this.rndSrv.triggerNewRnd$.subscribe(
+      aVal => {
+        console.log(aVal);
+        this.displayShots(aVal.toString());
+      });
+
+   }
+
+   displayShots(sHint:string){
+     console.log("Shot list "+ sHint);
    }
 
    getShots(){

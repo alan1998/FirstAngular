@@ -19,6 +19,7 @@ export class MapComponent implements OnInit {
   editShots: number[];
   eSpread:number;
   eDelete:number;
+  eInsert:number;
   //confirmationService: ConfirmationService;
 
   constructor(r:RoundService, private confirmationService: ConfirmationService) {
@@ -34,11 +35,13 @@ export class MapComponent implements OnInit {
   ngOnInit() {
     this.items = [
       {label: 'Spread',disabled:false, command: (event) => {this.spread();}},
-      {label: 'Delete',disabled:true, command: (event) => {this.deleteShot();}}
+      {label: 'Delete',disabled:true, command: (event) => {this.deleteShot();}},
+      {label: 'Insert',disabled:true, command: (event) => {this.insertShot();}}
     ];
     //Todo enums?  Programtically do this this
     this.eSpread=0;
     this.eDelete = 1;
+    this.eInsert =2;
   }
 
   confirmDel(numShot:number) {
@@ -146,10 +149,9 @@ export class MapComponent implements OnInit {
     let c = evt.mapBrowserEvent.coordinate;
     console.log(evt)
     let newPos = ol.proj.toLonLat(c);
-    //Itterate features and find first that has moved.
+    //Itterate features and find all that have moved.
     let fs = this.vectorSourceShots.getFeatures();
     let n=0;
-    let bFound = false;
     let shotNum;
     for(n=0; n < fs.length; n++){
       let id = fs[n].getId();
@@ -158,17 +160,11 @@ export class MapComponent implements OnInit {
       shotNum = parseInt(id)
       let shot = this.rndSrv.getShot(shotNum);
       if(!shot.hasSameLocation(p[0],p[1])){
-        bFound = true;
         shot.lat = newPos[1];
         shot.lon = newPos[0];
-        break;
+        this.rndSrv.movedShot(shotNum);
       }
     }
-    if(bFound){
-      this.rndSrv.movedShot(shotNum);
-    }
-    
-    //Recalculate distance for it and previous (add a shot moved method to round and rndService)
   }
 
   MenuHandler(e){
@@ -184,13 +180,16 @@ export class MapComponent implements OnInit {
       }
     }
     this.items[this.eDelete].disabled = true;
+    this.items[this.eInsert].disabled =true;
     if(( z > 19) && (feats != null) && (feats.length >2)){
       this.items[this.eSpread].disabled = false; // Zoom high enough and more than 1 shot at pixel
     }
     else{
       this.items[this.eSpread].disabled = true;
-      if(this.editShots.length==1)
+      if(this.editShots.length==1){
         this.items[this.eDelete].disabled = false;
+        this.items[this.eInsert].disabled = false;
+      }
     }
   }
 
@@ -212,7 +211,11 @@ export class MapComponent implements OnInit {
       }
     }
   }
-
+  insertShot(){
+    if(this.editShots.length == 1){
+      this.rndSrv.insertShot(this.editShots[0]);
+    }
+  }
   deleteShot(){
     if(this.editShots.length == 1){
       this.confirmDel(this.editShots[0]);

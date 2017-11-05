@@ -51,6 +51,8 @@ export class RoundService {
     let idx = numShot-1;
     if(idx <0 || idx > this.rnd.shots.length)
       return '';
+    let n = this.rnd.shots[idx].numOnHole;
+      /*
     if(this.bDispShotAtHole){
       // if hole number not set then use numShot
       // else count backwards until hole number changes
@@ -65,6 +67,7 @@ export class RoundService {
           n++;
           ptr--;
         }
+        console.log("Get shot on hole number "+ numShot + " : "+ n)
         return n.toString();
       }
       else
@@ -72,7 +75,7 @@ export class RoundService {
     }
     else
       return numShot.toString();
-
+*/
   }
 
   debugLogRnd(){
@@ -109,6 +112,12 @@ export class RoundService {
     }
   }
 
+  insertShot(n:number){
+    console.log("Insert before " + n);
+    this.rnd.insertShot(n);
+    this.updateRound();
+  }
+
   getShot(n:number):GolfShot{
     let shot:GolfShot;
     if(n>=1 && n <= this.rnd.shots.length )
@@ -118,7 +127,7 @@ export class RoundService {
 
   getHoleList():number[]{
     //May be will be a course latter that has 9/18
-    let holes = [1,2,3,4,5,6,8,9,10,11,12,13,14,15,16,17,18]
+    let holes = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18]
     return holes
   }
   //getTotal():number{
