@@ -47,12 +47,14 @@ export class RoundService {
     }
   }
 
-  getDisplayNumber(numShot:number):string{
-    let idx = numShot-1;
+//  getDisplayNumber(numShot:number):string{
+/*    let idx = numShot-1;
     if(idx <0 || idx > this.rnd.shots.length)
       return '';
     let n = this.rnd.shots[idx].numOnHole;
-      /*
+    return  idx.toString();
+
+
     if(this.bDispShotAtHole){
       // if hole number not set then use numShot
       // else count backwards until hole number changes
@@ -76,21 +78,47 @@ export class RoundService {
     else
       return numShot.toString();
 */
-  }
+//  }
 
   debugLogRnd(){
-    for(let n=0; n < this.rnd.shots.length; n++){
-      console.log(n + ' ' + this.rnd.shots[n].hole)
+//    for(let n=0; n < this.rnd.shots.length; n++){
+//      console.log(n + ' ' + this.rnd.shots[n].hole)
+//    }
+  }
+
+  updateShotNumbers(){
+    //Could optimise this passing in index that has changed
+    //Then do only releavant hole(s)
+    //For now start at the begining
+    let curHole = this.rnd.shots[0].getHole();
+    let curShot = 1;
+    for(let idx=0; idx < this.rnd.shots.length; idx++){
+      let s = this.rnd.shots[idx];
+      if(s.getHole() == -1)
+        s.numOnHole = idx+1;
+      else if(s.getHole() != curHole){
+        //Changed hole so
+        curShot =1;
+        curHole = s.getHole();
+        s.numOnHole = curShot++;
+      }
+      else{
+        s.numOnHole = curShot++;
+      }
+      console.log(idx + " : " + s.getHole() + " : " + s.numOnHole);
     }
   }
 
   setHole(numShot:number,numHole:number){
     this.rnd.setHole(numShot,numHole);
+    this.updateShotNumbers();
     //this.debugLogRnd();
     this.updateRound();
   }
+
   deleteShot(shotNumber:number){
     this.rnd.deleteShot(shotNumber);
+    this.updateShotNumbers();
     //If not first shot recalculate length of previous shot
    // if(shotNumber>1)
    //   this.rnd.calcDist(shotNumber);
@@ -115,6 +143,7 @@ export class RoundService {
   insertShot(n:number){
     console.log("Insert before " + n);
     this.rnd.insertShot(n);
+    this.updateShotNumbers();
     this.updateRound();
   }
 

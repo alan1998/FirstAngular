@@ -1,22 +1,20 @@
 import {GeoCalcs} from "./geo-calcs"
 
 export class GolfShot {
-    num : number;
     lat : number;
     lon : number;
     dist: number;
     time : Date;
     club :string;
-    hole : number;
+    private hole : number;
     numOnHole : number;
     bHoleManSet:boolean;
     bDistManSet:boolean;
     shiftDist:number = 0.00001;
     
     constructor(n:number){
-      this.num = -1;//Ignore input marks as unset
+      this.numOnHole = n;//Ignore input marks as unset
       this.hole = -1;
-      this.numOnHole = -1;
       this.bHoleManSet = false;
       this.bDistManSet = false;
     }
@@ -36,9 +34,13 @@ export class GolfShot {
       return d.toFixed(1);
     }
 
-    setHole(num:number,bManSet:boolean){
-      this.hole = num;
+    setHole(numHole:number,bManSet:boolean){
+      this.hole = numHole;
       this.bHoleManSet = bManSet;
+    }
+
+    getHole(){
+      return this.hole;
     }
     
     hasSameLocation(lon:number,lat:number):boolean{

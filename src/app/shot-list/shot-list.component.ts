@@ -29,9 +29,9 @@ export class ShotListComponent implements OnInit {
      return this.rndSrv.rnd.shots;
    }
 
-   getShotNumOnHole(shotRoundNum:number){
-     return this.rndSrv.getDisplayNumber(shotRoundNum)
-   }
+   //getShotNumOnHole(shotRoundNum:number){
+   //  return this.rndSrv.getDisplayNumber(shotRoundNum)
+   //}
 
    deleteShot(num:number){
      //Delete the shot from the round
@@ -39,6 +39,8 @@ export class ShotListComponent implements OnInit {
    }
 
    setHole(numShot:number,numHole:number){
+     //This cannot work from HTML at moment
+     // Need index (or shot number within round) not shot on hole 
      this.rndSrv.setHole(numShot,numHole)
   }
 

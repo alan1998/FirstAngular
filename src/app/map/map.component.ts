@@ -27,7 +27,7 @@ export class MapComponent implements OnInit {
     this.rndSrv = r;
     this.rndSrv.triggerNewRnd$.subscribe(
       aVal => {
-        console.log(aVal);
+        console.log("New round trigger : " +aVal);
         this.displayShots(aVal.toString());
       });
   }
@@ -59,7 +59,8 @@ export class MapComponent implements OnInit {
 }
 
   createShotStyle(n:number){
-    let dispNum = this.rndSrv.getDisplayNumber(n);
+    let shot = this.rndSrv.getShot(n);
+    let dispNum:string =  shot.numOnHole.toString();
     let shotStyle = new ol.style.Style({
       image: new ol.style.Circle({
         radius:6,
@@ -79,7 +80,7 @@ export class MapComponent implements OnInit {
   }
 
   displayShots(hint:string){
-    console.log('map display' )
+    console.log('Enter map  displayShots' )
     //Get first log point for map centre (Could do middle of bounding box)
     let firstShot = this.rndSrv.rnd.shots[0];
     let firstPlace = ol.proj.fromLonLat([firstShot.lon,firstShot.lat]);
@@ -131,7 +132,7 @@ export class MapComponent implements OnInit {
     }
     // Loop over shots. Feature for each and id = shot number
     for(let n=0; n < this.rndSrv.rnd.shots.length; n++){
-      console.log(n+' '+ this.rndSrv.rnd.shots[n].hole)
+ //     console.log(n+' '+ this.rndSrv.rnd.shots[n].getHole())
       let cent = ol.proj.fromLonLat([this.rndSrv.rnd.shots[n].lon, this.rndSrv.rnd.shots[n].lat]);
       let feature = new ol.Feature({
         geometry: new ol.geom.Point(cent),
@@ -142,12 +143,12 @@ export class MapComponent implements OnInit {
       feature.setStyle(this.createShotStyle(n+1));
       this.vectorSourceShots.addFeature(feature);
     }
-    
+    console.log('Exit map  displayShots' )
   }
 
   onModifyend(evt){
     let c = evt.mapBrowserEvent.coordinate;
-    console.log(evt)
+    //console.log(evt)
     let newPos = ol.proj.toLonLat(c);
     //Itterate features and find all that have moved.
     let fs = this.vectorSourceShots.getFeatures();
@@ -163,6 +164,7 @@ export class MapComponent implements OnInit {
         shot.lat = newPos[1];
         shot.lon = newPos[0];
         this.rndSrv.movedShot(shotNum);
+        console.log("ModEnd id/Num:" + id + " hole:" + shot.getHole() + " num:" + shot.numOnHole)
       }
     }
   }

@@ -19,7 +19,7 @@ export class Round{
     doInitialProcess(){
         // Set shot number and calculate distance to next    
         for(let n=0; n < this.shots.length;n++){
-            this.shots[n].num = n+1;
+            this.shots[n].numOnHole = n+1;
             if(n < this.shots.length-1){
                 this.shots[n].calcDist(this.shots[n+1]);
             }
@@ -43,7 +43,7 @@ export class Round{
                 this.shots[n].setHole(numHole,false)
             }
         }
-        console.log('exitSetHole' + numShot) 
+        console.log('Exit Round SetHole' + numShot) 
     }
 
     deleteShot(numberT:number){
@@ -52,7 +52,7 @@ export class Round{
         this.shots.splice(numberT-1,1);
         // Renumber and calculate distance if not manually set
         for(let n=numberT-1; n < this.shots.length; n++){
-            this.shots[n].num = n+1
+            this.shots[n].numOnHole = n+1
         }
         let nRepIdx = numberT-2;
         console.log("cal shot index length "+nRepIdx)

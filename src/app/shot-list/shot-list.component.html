@@ -5,9 +5,9 @@
   <p-accordion>
     <p-accordionTab *ngFor="let s of getShots()" >
       <p-header>
-       <span>{{s.hole}} : {{getShotNumOnHole( s.num)}} : {{s.displayYrdsDist()}}yrd</span>
+       <span>{{s.hole}} : {{ s.numOnHole}} : {{s.displayYrdsDist()}}yrd</span>
       </p-header>
-        <select (input)='setHole(s.num,$event.target.value)' [value]='s.hole'>
+        <select (input)='setHole(s.numOnHole,$event.target.value)' [value]='s.hole'>
         <option *ngFor="let h of getHoleList()">{{h}}</option>
         </select>
 
