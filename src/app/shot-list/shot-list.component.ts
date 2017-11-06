@@ -39,8 +39,6 @@ export class ShotListComponent implements OnInit {
    }
 
    setHole(numShot:number,numHole:number){
-     //This cannot work from HTML at moment
-     // Need index (or shot number within round) not shot on hole 
      this.rndSrv.setHole(numShot,numHole)
   }
 

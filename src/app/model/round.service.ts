@@ -94,6 +94,7 @@ export class RoundService {
     let curShot = 1;
     for(let idx=0; idx < this.rnd.shots.length; idx++){
       let s = this.rnd.shots[idx];
+      s.numInRound = idx + 1;
       if(s.getHole() == -1)
         s.numOnHole = idx+1;
       else if(s.getHole() != curHole){
@@ -127,16 +128,18 @@ export class RoundService {
 
   movedShot(n:number){
     // Recalulate distance (+whatever else) for this and preceeding shot ( if not manually set)
+    let movedShot;
     if(n < this.rnd.getTotal()){
       //Not the last shot so calculate distance
-      let shot = this.getShot(n);
-      if(!shot.bDistManSet)
-        shot.calcDist(this.getShot(n+1));
+      movedShot = this.getShot(n);
+      let nextShot = this.getShot(n+1)
+      if(!movedShot.bDistManSet && (movedShot.getHole() == nextShot.getHole() ))
+        movedShot.calcDist(nextShot);
     }
     if( n > 1){
-      let shot = this.getShot(n-1);
-      if(!shot.bDistManSet)
-        shot.calcDist(this.getShot(n));  
+      let prevShot = this.getShot(n-1);
+      if(!prevShot.bDistManSet && (movedShot.getHole() ==prevShot.getHole()))
+        prevShot.calcDist(movedShot);  
     }
   }
 

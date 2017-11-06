@@ -7,7 +7,7 @@
       <p-header>
        <span>{{s.hole}} : {{ s.numOnHole}} : {{s.displayYrdsDist()}}yrd</span>
       </p-header>
-        <select (input)='setHole(s.numOnHole,$event.target.value)' [value]='s.hole'>
+        <select (input)='setHole(s.numInRound,$event.target.value)' [value]='s.hole'>
         <option *ngFor="let h of getHoleList()">{{h}}</option>
         </select>
 

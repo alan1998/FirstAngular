@@ -8,11 +8,13 @@ export class GolfShot {
     club :string;
     private hole : number;
     numOnHole : number;
+    numInRound : number;
     bHoleManSet:boolean;
     bDistManSet:boolean;
     shiftDist:number = 0.00001;
     
     constructor(n:number){
+      this.numInRound = n+1;
       this.numOnHole = n;//Ignore input marks as unset
       this.hole = -1;
       this.bHoleManSet = false;
