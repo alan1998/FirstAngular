@@ -3,7 +3,7 @@ import { RoundService} from '../model/round.service'
 import { GolfShot } from '../model/golf-shot'
 import * as ol from '../../../../node_modules/openlayers';
 import {ContextMenuModule,MenuItem} from 'primeng/primeng';
-import {ConfirmDialogModule,ConfirmationService} from 'primeng/primeng';
+import {ConfirmDialogModule,ConfirmationService, DialogModule} from 'primeng/primeng';
 
 @Component({
   selector: 'app-map',
@@ -20,6 +20,9 @@ export class MapComponent implements OnInit {
   eSpread:number;
   eDelete:number;
   eInsert:number;
+  eEdit:number;
+  display:boolean = false;
+  dlgShot:GolfShot =  new GolfShot(0);
   //confirmationService: ConfirmationService;
 
   constructor(r:RoundService, private confirmationService: ConfirmationService) {
@@ -36,12 +39,14 @@ export class MapComponent implements OnInit {
     this.items = [
       {label: 'Spread',disabled:false, command: (event) => {this.spread();}},
       {label: 'Delete',disabled:true, command: (event) => {this.deleteShot();}},
-      {label: 'Insert',disabled:true, command: (event) => {this.insertShot();}}
+      {label: 'Insert',disabled:true, command: (event) => {this.insertShot();}},
+      {label: 'Edit...',disabled:true, command: (event) => {this.editShot();}}
     ];
     //Todo enums?  Programtically do this this
     this.eSpread=0;
     this.eDelete = 1;
     this.eInsert =2;
+    this.eEdit = 3;
   }
 
   confirmDel(numShot:number) {
@@ -183,6 +188,7 @@ export class MapComponent implements OnInit {
     }
     this.items[this.eDelete].disabled = true;
     this.items[this.eInsert].disabled =true;
+    this.items[this.eEdit].disabled =true;
     if(( z > 19) && (feats != null) && (feats.length >2)){
       this.items[this.eSpread].disabled = false; // Zoom high enough and more than 1 shot at pixel
     }
@@ -191,6 +197,7 @@ export class MapComponent implements OnInit {
       if(this.editShots.length==1){
         this.items[this.eDelete].disabled = false;
         this.items[this.eInsert].disabled = false;
+        this.items[this.eEdit].disabled =false;
       }
     }
   }
@@ -221,6 +228,14 @@ export class MapComponent implements OnInit {
   deleteShot(){
     if(this.editShots.length == 1){
       this.confirmDel(this.editShots[0]);
+    }
+  }
+
+  editShot(){
+    if(this.editShots.length == 1){
+      //Show dialog
+      this.dlgShot = this.rndSrv.getShot(this.editShots[0]);
+      this.display = true;
     }
   }
 }

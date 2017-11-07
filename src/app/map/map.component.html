@@ -3,3 +3,9 @@
 </div>
 <p-contextMenu appendTo="body" [target]="map" [global]="false" [model]="items"></p-contextMenu>
 <p-confirmDialog></p-confirmDialog>
+<p-dialog  [(visible)]="display">
+    <p-header>
+            {{dlgShot.numInRound}}
+    </p-header>
+    Content
+</p-dialog>
