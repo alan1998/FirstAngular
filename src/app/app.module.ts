@@ -12,6 +12,7 @@ import {RoundService} from "./model/round.service";
 import { ShotListComponent } from './shot-list/shot-list.component';
 import { MapComponent } from './map/map.component';
 import {SharedModule} from 'primeng/primeng';
+import {RadioButtonModule} from 'primeng/primeng';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import {SharedModule} from 'primeng/primeng';
     AccordionModule,
     SharedModule,
     ConfirmDialogModule,
-    DialogModule
+    DialogModule,
+    RadioButtonModule
   ],
   providers: [RoundService,ConfirmationService],
   bootstrap: [AppComponent]

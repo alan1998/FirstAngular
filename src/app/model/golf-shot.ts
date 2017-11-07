@@ -6,6 +6,7 @@ export class GolfShot {
     dist: number;
     time : Date;
     club :string;
+    lie:string;
     private hole : number;
     numOnHole : number;
     numInRound : number;

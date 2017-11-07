@@ -7,5 +7,15 @@
     <p-header>
             {{dlgShot.numInRound}}
     </p-header>
-    Content
+    <select (input)='setHole(dlgShot.numInRound,$event.target.value)' [value]='dlgShot.hole'>
+        <option *ngFor="let h of getHoleList()">{{h}}</option>
+    </select>
+    <span>
+        <p-radioButton name="groupLie" value="T" label="Tee" [(ngModel)]="dlgShot.lie"></p-radioButton>
+        <p-radioButton name="groupLie" value="F"  label="Fairway" [(ngModel)]="dlgShot.lie"></p-radioButton>
+        <p-radioButton name="groupLie" value="R"  label="Rough" [(ngModel)]="dlgShot.lie"></p-radioButton>
+        <p-radioButton name="groupLie" value="S"  label="Sand" [(ngModel)]="dlgShot.lie"></p-radioButton>
+        <p-radioButton name="groupLie" value="Z"  label="Hazard" [(ngModel)]="dlgShot.lie"></p-radioButton>
+        <p-radioButton name="groupLie" value="G"  label="Green" [(ngModel)]="dlgShot.lie"></p-radioButton>
+    </span>
 </p-dialog>

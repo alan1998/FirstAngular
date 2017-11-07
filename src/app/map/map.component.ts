@@ -4,6 +4,7 @@ import { GolfShot } from '../model/golf-shot'
 import * as ol from '../../../../node_modules/openlayers';
 import {ContextMenuModule,MenuItem} from 'primeng/primeng';
 import {ConfirmDialogModule,ConfirmationService, DialogModule} from 'primeng/primeng';
+import {RadioButtonModule} from 'primeng/primeng';
 
 @Component({
   selector: 'app-map',
@@ -23,6 +24,7 @@ export class MapComponent implements OnInit {
   eEdit:number;
   display:boolean = false;
   dlgShot:GolfShot =  new GolfShot(0);
+  selectedValue = "G";
   //confirmationService: ConfirmationService;
 
   constructor(r:RoundService, private confirmationService: ConfirmationService) {
@@ -237,5 +239,11 @@ export class MapComponent implements OnInit {
       this.dlgShot = this.rndSrv.getShot(this.editShots[0]);
       this.display = true;
     }
+  }
+  setHole(numShot:number,numHole:number){
+    this.rndSrv.setHole(numShot,numHole)
+  }
+  getHoleList():number[]{
+    return this.rndSrv.getHoleList()
   }
 }

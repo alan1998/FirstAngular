@@ -41,7 +41,7 @@ may need npm install @angular/animations --save
 Then app.module.ts needs
 	import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 	import {ContextMenuModule, MenuItem} from 'primeng/primeng';
-	import { MenuDemoComponent } from './menu-demo/menu-demo.component';
+	
 	
 	and
 	imports: [
