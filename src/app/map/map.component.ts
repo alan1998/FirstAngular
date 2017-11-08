@@ -25,6 +25,7 @@ export class MapComponent implements OnInit {
   display:boolean = false;
   dlgShot:GolfShot =  new GolfShot(0);
   selectedValue = "G";
+
   //confirmationService: ConfirmationService;
 
   constructor(r:RoundService, private confirmationService: ConfirmationService) {
@@ -126,7 +127,7 @@ export class MapComponent implements OnInit {
       this.map.on('singleclick', (e) => {
         let feats = this.map.getFeaturesAtPixel(e.pixel);
         if(feats.length>1){
-          console.log("Single click on object " + feats[1].getId());
+          this.rndSrv.selectShot( feats[1].getId());
         }
       });
   

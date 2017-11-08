@@ -9,7 +9,8 @@ import {SharedModule} from 'primeng/primeng';
   styleUrls: ['./shot-list.component.css']
 })
 export class ShotListComponent implements OnInit {
-  rndSrv:RoundService
+  rndSrv:RoundService;
+  index:number = 0;
   
   constructor(r:RoundService) {
     this.rndSrv = r
@@ -18,7 +19,14 @@ export class ShotListComponent implements OnInit {
         console.log(aVal);
         this.displayShots(aVal.toString());
       });
-
+    this.rndSrv.triggerShotSel$.subscribe(
+      aVal => {
+        console.log("Shot sel " +aVal);
+        let n:any= aVal;
+        this.index = n-1;
+        //this.displayShots(aVal.toString());
+      });
+  
    }
 
    displayShots(sHint:string){

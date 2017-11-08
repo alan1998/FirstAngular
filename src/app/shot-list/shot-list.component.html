@@ -2,7 +2,7 @@
   <p>
     Total:{{getTotal()}}
   </p>
-  <p-accordion>
+  <p-accordion [activeIndex]="index">
     <p-accordionTab *ngFor="let s of getShots()" >
       <p-header>
        <span>{{s.hole}} : {{ s.numOnHole}} : {{s.displayYrdsDist()}}yrd</span>

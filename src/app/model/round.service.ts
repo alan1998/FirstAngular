@@ -9,10 +9,16 @@ export class RoundService {
   private _triggerNewSubj = new Subject();
   triggerNewRnd$ = this._triggerNewSubj.asObservable();
   bDispShotAtHole:boolean;  // i.e. display shot number per hole not round
+  private _triggerShotSelSubj = new Subject();
+  triggerShotSel$ = this._triggerShotSelSubj.asObservable();
 
   constructor() {
     this.rnd = new Round();
     this.bDispShotAtHole = true;
+  }
+
+  selectShot(n:number){
+    this._triggerShotSelSubj.next(n.toString());
   }
 
   loadNewRound(){
