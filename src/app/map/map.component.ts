@@ -123,6 +123,13 @@ export class MapComponent implements OnInit {
           zoom: 15
         })
       });
+      this.map.on('singleclick', (e) => {
+        let feats = this.map.getFeaturesAtPixel(e.pixel);
+        if(feats.length>1){
+          console.log("Single click on object " + feats[1].getId());
+        }
+      });
+  
       this.modifyShots = new ol.interaction.Modify({
           source: this.vectorSourceShots});
       this.map.addInteraction(this.modifyShots);
@@ -161,6 +168,7 @@ export class MapComponent implements OnInit {
     let fs = this.vectorSourceShots.getFeatures();
     let n=0;
     let shotNum;
+    let bMoved:boolean = false;
     for(n=0; n < fs.length; n++){
       let id = fs[n].getId();
       let c = fs[n].getGeometry().getFirstCoordinate();
@@ -171,9 +179,11 @@ export class MapComponent implements OnInit {
         shot.lat = newPos[1];
         shot.lon = newPos[0];
         this.rndSrv.movedShot(shotNum);
+        bMoved = true;
         console.log("ModEnd id/Num:" + id + " hole:" + shot.getHole() + " num:" + shot.numOnHole)
       }
     }
+    console.log("Map moved point" + bMoved);
   }
 
   MenuHandler(e){
