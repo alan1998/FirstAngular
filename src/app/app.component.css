@@ -1,13 +1,18 @@
-#container {
+.container {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     height:100%;
+    width:100%;
     background-color: red;
 }
 
-#shot-list-div{
-    flex: 1 1 auto;
+.shot-list{
+    flex-basis: 30%;
     overflow-y: auto;
     min-height: 0px;
     
+}
+
+.course-map{
+    flex-basis:70%;
 }
