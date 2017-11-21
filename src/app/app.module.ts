@@ -11,7 +11,7 @@ import { LoadRoundComponent } from './load-round/load-round.component';
 import {RoundService} from "./model/round.service";
 import { ShotListComponent } from './shot-list/shot-list.component';
 import { MapComponent } from './map/map.component';
-import {SharedModule} from 'primeng/primeng';
+import {DataTableModule,SharedModule} from 'primeng/primeng';
 import {RadioButtonModule} from 'primeng/primeng';
 
 @NgModule({
@@ -31,7 +31,8 @@ import {RadioButtonModule} from 'primeng/primeng';
     SharedModule,
     ConfirmDialogModule,
     DialogModule,
-    RadioButtonModule
+    RadioButtonModule,
+    DataTableModule
   ],
   providers: [RoundService,ConfirmationService],
   bootstrap: [AppComponent]

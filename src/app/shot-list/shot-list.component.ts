@@ -1,7 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { RoundService} from '../model/round.service'
 import {AccordionModule} from 'primeng/primeng';
-import {SharedModule} from 'primeng/primeng';
+import {DataTableModule,SharedModule} from 'primeng/primeng';
+import {GolfShot} from '../model/golf-shot'
+
+class thing{
+  v1:string  = "s";
+}
 
 @Component({
   selector: 'app-shot-list',
@@ -11,6 +16,8 @@ import {SharedModule} from 'primeng/primeng';
 export class ShotListComponent implements OnInit {
   rndSrv:RoundService;
   index:number = 0;
+  things: thing[];
+  localshots:GolfShot[];
   
   constructor(r:RoundService) {
     this.rndSrv = r
@@ -28,8 +35,15 @@ export class ShotListComponent implements OnInit {
       });
   
    }
+   ngOnInit() {
+    // this.localshots = this.rndSrv.rnd.shots;//[new GolfShot(1)];
+     this.things = [{v1:"1"},{v1:"2"},{v1:"3"}];
+  }
 
    displayShots(sHint:string){
+    let a = new GolfShot(2);
+    //this.localshots  = [...this.localshots,a];
+    this.localshots = this.rndSrv.rnd.shots;
      console.log("Shot list "+ sHint);
    }
 
@@ -57,9 +71,4 @@ export class ShotListComponent implements OnInit {
     return this.rndSrv.getHoleList()
   }
  
-
-  ngOnInit() {
-  }
-
-
 }

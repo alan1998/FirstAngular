@@ -23,7 +23,7 @@ export class GolfShot {
     }
 
     calcDist(s2:GolfShot):number{
-      //Calc distance to start of next shot
+      //Calc distance to start of next shot (m)
       if(s2 != null){
         this.dist = GeoCalcs.dist(this.lon,this.lat,s2.lon,s2.lat);        
       }

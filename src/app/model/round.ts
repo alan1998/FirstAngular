@@ -50,6 +50,7 @@ export class Round{
         let newS :GolfShot[] ;
         console.log(numberT)
         this.shots.splice(numberT-1,1);
+        this.shots = this.shots.slice(0,this.shots.length);
         // Renumber and calculate distance if not manually set
         for(let n=numberT-1; n < this.shots.length; n++){
             this.shots[n].numOnHole = n+1
@@ -75,7 +76,7 @@ export class Round{
         sCopy.shift(0);
         //Insert into array
         this.shots.splice(n-1,0,sCopy);
-
+        this.shots = this.shots.slice(0,this.shots.length);
         // hole number will be correct?
 
         // calc distance

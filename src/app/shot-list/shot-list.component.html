@@ -2,29 +2,13 @@
   <p>
     Total:{{getTotal()}}
   </p>
-  <p-accordion [activeIndex]="index">
-    <p-accordionTab *ngFor="let s of getShots()" >
-      <p-header>
-       <span>{{s.hole}} : {{ s.numOnHole}} : {{s.displayYrdsDist()}}yrd</span>
-      </p-header>
-        <select (input)='setHole(s.numInRound,$event.target.value)' [value]='s.hole'>
-        <option *ngFor="let h of getHoleList()">{{h}}</option>
-        </select>
-
-       <span>{{s.displayYrdsDist()}}yrd</span>
-    </p-accordionTab>
-  </p-accordion>
-<!--  <ul style="height: 500px">
-    <li *ngFor="let s of getShots()" >
-      <div class="card card-block" style="height:150px; overflow-y:auto"   >
-        <h2  >{{s.hole}}</h2>
-        <p class="card-title"   >{{s.num}}</p>
-        <i class="fa fa-eraser"  aria-hidden="true" (click)='deleteShot(s.num)' ></i>
-        <p>{{s.displayYrdsDist()}}yrd</p>
-        <select (input)='setHole(s.num,$event.target.value)' [value]='s.hole'>
-          <option *ngFor="let h of getHoleList()">{{h}}</option>
-        </select>
-      </div>    
-    </li>
-  </ul> -->
+  <p-dataTable [value]="localshots">
+    <p-column field="hole" header="Hole"></p-column>
+    <p-column field="numOnHole" header="Shot"></p-column>
+    <p-column  header="Length">
+      <ng-template let-shot="rowData" pTemplate="body">
+        <span>{{shot.displayYrdsDist()}}</span>
+      </ng-template>
+    </p-column>
+  </p-dataTable>
 </section>
